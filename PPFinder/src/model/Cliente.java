@@ -79,6 +79,9 @@ public class Cliente extends Thread
         BufferedReader b;
         int index;
         
+        
+        // Comentario de prueba?
+        
         try 
         {
             p = new PrintStream(socket.getOutputStream());
