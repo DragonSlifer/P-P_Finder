@@ -80,8 +80,6 @@ public class Cliente extends Thread
         int index;
         
         
-        // Comentario de prueba?
-        
         try 
         {
             p = new PrintStream(socket.getOutputStream());
