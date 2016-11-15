@@ -1,8 +1,5 @@
 /*
  *  Clase Cliente
-
-
-    MIRA COMO PRUEBO GITHUB
  */
 package model;
 
