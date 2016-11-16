@@ -5,7 +5,7 @@ package Cliente;
 import java.util.TimerTask;
 
 public class MainFrame extends javax.swing.JFrame {
-    private Controlador controlador;
+    private ControllerC controlador;
 
     /**
      * Creates new form MainFrame
@@ -13,7 +13,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         this.setVisible(true);
-        controlador = new Controlador(Map);
+        controlador = new ControllerC(Map);
         
         //Timer time = new Timer();
         //time.schedule(new UpdateMapMethod(this), 0, 20000);  ///< Crea una tarea que se encarga de actualizar el mapa

@@ -21,13 +21,13 @@ import javax.swing.JTextArea;
  * @author Jorge
  */
 public class ControllerC {
-    private Model model;
+    private ModelC model;
     
     
     public ControllerC(JTextArea console){
         
         try {
-            this.model = new Model(console);
+            this.model = new ModelC(console);
         } catch (UnknownHostException ex) {
             Logger.getLogger(ControllerC.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,10 +81,6 @@ public class ControllerC {
             System.out.println("Controller Message -- SendInfo -- Error Sending Location");
         else
             System.out.println("Controller Message -- SendInfo -- Location Sended");
-    }
-
-    public void iniciarServidor() {
-        model.IniciaServer();
     }
 
     public void iniciarClientes() {

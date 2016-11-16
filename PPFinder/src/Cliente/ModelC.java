@@ -26,8 +26,7 @@ public class ModelC {
 
     private static final int n_cli = 20;
 
-    private Vector<Cliente> v_cli;
-    private Servidor servidor;
+    private Vector<ClienteThread> v_cli;
     private InetAddress ip; // IP LOCAL AL ORDENADOR
     private int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private JTextArea consola;
@@ -49,19 +48,9 @@ public class ModelC {
         v_cli = new Vector<>();
         System.setOut(out);
         System.setErr(out);
-        CreaServer();
         CreaClientes();
     }
 
-    /******************************************************************
-     * Función que declara el server con un máximo de clientes indicado
-     ******************************************************************/
-    public void CreaServer() {
-
-        servidor = new Servidor(n_cli,vecinos,port,out, iteraciones); // Inicialmente que el servidor acepte únicamente 20 clientes (EN FASE DE PRUEBAS)
-        System.out.println("Model -- CreaServer -- Servidor creado pero NO inicializado");
-
-    }
 
     /******************************************************************
      * Función que declara los clientes pero no los inicializa
@@ -76,7 +65,7 @@ public class ModelC {
 
             for (int i = 0; i < n_cli; i++) {
 
-                Cliente cli_aux = new Cliente(ip.getHostAddress(), port, vecinos, out, iteraciones);
+                ClienteThread cli_aux = new ClienteThread(ip.getHostAddress(), port, vecinos, out, iteraciones);
                 v_cli.add(cli_aux);
             }
 
@@ -87,18 +76,6 @@ public class ModelC {
             System.err.println("Cliente -- CreaClientes -- " + e.getMessage());
             System.exit(1);
         }
-
-    }
-
-    /**
-     * ****************************************************************
-     * Función que pone en funcionamiento al servidor
-    * ***************************************************************
-     */
-    public void IniciaServer() {
-
-        servidor.start();
-        System.out.println("Model -- CreaServer -- Servidor creado pero NO inicializado");
 
     }
 
