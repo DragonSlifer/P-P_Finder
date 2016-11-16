@@ -27,7 +27,6 @@ public class ModelS {
     private static final int n_cli = 20;
 
     private ServidorThread servidor;
-    private InetAddress ip; // IP LOCAL AL ORDENADOR
     private int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private JTextArea consola;
     private int vecinos = 10;
