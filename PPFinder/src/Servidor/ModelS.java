@@ -11,9 +11,7 @@ package Servidor;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Vector;
 import javax.swing.JTextArea;
 
 /**
@@ -27,10 +25,10 @@ public class ModelS {
     private static final int n_cli = 20;
 
     private ServidorThread servidor;
-    private int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
-    private JTextArea consola;
-    private int vecinos = 10;
-    private int iteraciones = 5;
+    private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
+    private final JTextArea consola;
+    private final int vecinos = 10;
+    private final int iteraciones = 2;
     PrintStream out;
 
     /**
@@ -77,7 +75,7 @@ public class ModelS {
      */
     private static class TextAreaOutputStream extends OutputStream {
 
-        private JTextArea textControl;
+        private final JTextArea textControl;
 
         public TextAreaOutputStream(JTextArea consola) {
             textControl = consola;
