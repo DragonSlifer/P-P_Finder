@@ -55,7 +55,6 @@ public class ModelS
     {
         servidor = new ServidorThread(n_cli,vecinos,port,out, iteraciones); // Inicialmente que el servidor acepte únicamente 20 clientes (EN FASE DE PRUEBAS)
         System.out.println("Model -- CreaServer -- Servidor creado pero NO inicializado");
-
     }
 
     /**

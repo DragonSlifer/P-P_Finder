@@ -22,12 +22,12 @@ import javax.swing.JTextArea;
  -- mensaje"
  *
  */
-public class ModelC {
-
+public class ModelC 
+{
     private static final int n_cli = 20;
 
     private final Vector<ClienteThread> v_cli;
-    private InetAddress ip; // IP LOCAL AL ORDENADOR
+    private InetAddress ip;
     private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private final JTextArea consola;
     private final int vecinos = 10;
@@ -63,6 +63,7 @@ public class ModelC {
         try 
         {
             ip = InetAddress.getLocalHost();
+            //ip = InetAddress.getByName("151.182.86.64"); Esta seria para hacerlo con otro pc, la ip es la mia publica, habria que poner la del orde que sea el servidor
 
             for (int i = 0; i < n_cli; i++) 
             {
