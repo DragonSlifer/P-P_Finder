@@ -25,6 +25,7 @@ public class ClienteThread extends Thread
     DatagramSocket socketUDP;
     PrintStream out;
     double latitud = 0, longitud = 0;
+    long time_start, time_end, time_total;
 
     /******************************************************************
      * Constructor de la clase cliente al cual se le pasa el puerto
@@ -116,9 +117,9 @@ public class ClienteThread extends Thread
             socketUDP = new DatagramSocket();
             ///< Esto manda la localización
             address = InetAddress.getByName("localhost");
+            //address = InetAddress.getByName("151.182.86.64");
             DecimalFormat decimales = new DecimalFormat("0.0000");
             mensaje = id + "->" + decimales.format(latitud) + " / " + decimales.format(longitud);
-            //mensaje = Float.toString(info.retrieveLatitud()) + "/" + Float.toString(info.retrieveLongitud());
             mensaje_bytes = mensaje.getBytes();
             paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
 
@@ -216,6 +217,32 @@ public class ClienteThread extends Thread
         latitud = rnd.nextDouble() * 180 + 0;
     }
     
+    /******************************************************************
+    * Se encarga de enviar el tiempo de ejecución del cliente al 
+    * servidor
+    * ****************************************************************/
+    private void enviarTiempos(long tiempo)
+    {
+        byte[] mensaje_bytes;
+        DatagramPacket paquete;
+        InetAddress address;
+        String mensaje;
+        
+        try 
+        {
+            address = InetAddress.getByName("localhost");
+            mensaje = "" + tiempo;
+            mensaje_bytes = mensaje.getBytes();
+            paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
+
+            socketUDP.send(paquete);
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void run()
     {       
@@ -224,11 +251,15 @@ public class ClienteThread extends Thread
             peticionConexion(); // Envio mediante TCP inicial y///< En caso de que la Informacion haya sido actualizada, la reenvi de actualizacion
             establecerConexion(); //Esta funcion esperara el mensaje del servidor confirmando el inciio de la comunicación
             
-            for(int i = 0; i < 5; i++)
+            for(int i = 0; i < 2; i++)
             {
+                time_start = System.currentTimeMillis();
                 enviarCoordenadas(); // Envio mediante UDP de la localizacion
                 recibirCoordenadas(); // Recibimos las coordenadas del resto de vecinos
                 recibirConfirmaciones(); //El cliente espera hasta recibir la confirmación de todos sus vecinos
+                time_end = System.currentTimeMillis();
+                time_total = (time_end - time_start) / 1000; //Tiempo total en segundos
+                //enviarTiempos(time_total); //Enviamos los tiempos al servidor
                 actualizarCoordenadas(); //Aqui se calcularian las nuevas coordenadas
                 
                 try 
