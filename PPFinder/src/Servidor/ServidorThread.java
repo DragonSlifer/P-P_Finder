@@ -13,6 +13,7 @@ public class ServidorThread extends Thread
     ServerSocket socketTCP;
     DatagramSocket socketUDP;
     Vector<Vector<Socket>> vec_clientes = new Vector<Vector<Socket>>(num_clientes);
+    Vector<Vector<Vector<Long>>> vec_tiempos = new Vector<Vector<Vector<Long>>>(num_clientes);
     PrintStream out;
     
     /******************************************************************
@@ -239,9 +240,33 @@ public class ServidorThread extends Thread
         }
     }
     
+    void recibirTiempos(int grupo_cli, int id_cli)
+    {
+        String mensaje;
+        Long tiempo;
+        byte[] mensaje_bytes = new byte[256];
+        DatagramPacket resp_paquete = new DatagramPacket(mensaje_bytes,256);
+           
+        try
+        {
+            socketUDP.receive(resp_paquete);
+               
+            mensaje = new String(mensaje_bytes).trim();
+                
+            tiempo = Long.parseLong(mensaje);
+                
+            vec_tiempos.get(grupo_cli).get(id_cli).add(tiempo);
+        }
+        catch (IOException e) 
+        {       
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
+    
     /******************************************************************
     * Función que se inicia al ejecutar el hilo ServidorThread desde el main
- mediante el comando .start()
+    * mediante el comando .start()
     * ****************************************************************/
     @Override
     public void run()
@@ -306,7 +331,9 @@ public class ServidorThread extends Thread
                         }
 
                     tramitarRespuestas(grupo_cli, id_cli, puerto, address); // Esperamos las confirmaciones de los vecinos y las reenviamos al cliente que mando las coordenadas
-
+                    
+                    //recibirTiempos(grupo_cli, id_cli);
+                    
                     contador++;
                 } 
                 while (contador < num_clientes);
