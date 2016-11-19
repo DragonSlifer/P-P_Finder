@@ -8,7 +8,8 @@
  */
 package Cliente;
 
-public class INFO {
+public class INFO 
+{
     boolean changed;        ///< Dirá si la información es nueva o no
     /**
      * La información se guardará como un entero
@@ -32,32 +33,38 @@ public class INFO {
      */
     long info;
     
-    public INFO (){
+    public INFO ()
+    {
         changed = false;
     }
     
-    public void changeChangedAtt(){
+    public void changeChangedAtt()
+    {
         if (changed == false)
             changed = true;
         else
             changed = false;
     }
     
-    public boolean changedInfoAsk(){
+    public boolean changedInfoAsk()
+    {
         return changed;
     }
     
-    public void addInfo(long nfo){
+    public void addInfo(long nfo)
+    {
         this.info = nfo;
         changed = true;              ///< Hemos modificado la informacion, por lo que lo marcamos en este
     }
     
-    public long getInfo(){
+    public long getInfo()
+    {
         changed = false;            ///< Cuando ejecutamos esta orden, al recuperar la informacion ya no esta modificada
         return info;
     }
     
-    public float retrieveLatitud(){
+    public float retrieveLatitud()
+    {
         float retval = 0;
         long nfo = info;
         long aux = (info%10^15)*10^15;
@@ -68,7 +75,8 @@ public class INFO {
         return retval;
     }
     
-    public float retrieveLongitud(){
+    public float retrieveLongitud()
+    {
         float retval;
         long nfo = info;
         long aux = (info%10^9)*10^9;
@@ -77,7 +85,5 @@ public class INFO {
         retval = nfo/100;           ///< Ponemos la Longitud en la medida necesaria
         
         return retval;
-    }
-    
-    
+    }  
 }

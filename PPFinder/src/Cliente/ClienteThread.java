@@ -1,6 +1,3 @@
-/*
- *  Clase ClienteThread
- */
 package Cliente;
 
 import java.io.BufferedReader;
@@ -20,7 +17,7 @@ import java.util.Random;
 
 public class ClienteThread extends Thread
 {
-    private INFO info;              ///< Esta clase guardará la información del cliente en cuestion
+    private final INFO info;              ///< Esta clase guardará la información del cliente en cuestion
     private Vector<INFO> ubi;
     int puerto, vecinos, id, iteraciones;
     String ip;

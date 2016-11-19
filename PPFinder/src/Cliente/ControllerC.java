@@ -18,26 +18,29 @@ import javax.swing.JTextArea;
  * 
  * Los mensajes del controlador seguiran la estructura:
       "ControllerC -- nombre_de_funcion -- mensaje"
- * @author Jorge
  */
-public class ControllerC {
+public class ControllerC 
+{
     private ModelC model;
     
-    
-    public ControllerC(JTextArea console){
-        
-        try {
+    public ControllerC(JTextArea console)
+    {
+        try 
+        {
             this.model = new ModelC(console);
-        } catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex) 
+        {
             Logger.getLogger(ControllerC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+        
     /**
      * Esta función cambia el texto del recuadro de ayuda rápida
      * @param command Sirve para determinar que ayuda se debe mostrar
      * @return 
      */
-    public String changeHelpBox (int command){
+    public String changeHelpBox (int command)
+    {
         String helpText = null;
         /** 
          * Llamada a funcion del modelo
@@ -53,7 +56,8 @@ public class ControllerC {
         return helpText;
     }
     
-    public String MapUpdate(String genero, String modo, String juego, String busco) {
+    public String MapUpdate(String genero, String modo, String juego, String busco) 
+    {
         String res = "No se ha encontrado nada con esos datos";
         ///< Peticion al modelo de encontrar jugadores y mostrarlos.
         ///< Con el nombre del cliente y las cordenadas será suficiente por ahora
@@ -64,7 +68,8 @@ public class ControllerC {
         return res;
     }
 
-    public String UpdateMap() {
+    public String UpdateMap() 
+    {
         String coord = "Fallo al Actualizar el Mapa";
         ///< model.updateMap()
         if (!"Fallo al Actualizar el Mapa".equals(coord))
@@ -74,7 +79,8 @@ public class ControllerC {
         return coord;
     }
 
-    public void SendInfo() {
+    public void SendInfo() 
+    {
         Boolean correcto = false;
         /// correcto = model.sendInfo();
         if (correcto == false)
@@ -83,7 +89,8 @@ public class ControllerC {
             System.out.println("Controller Message -- SendInfo -- Location Sended");
     }
 
-    public void iniciarClientes() {
+    public void iniciarClientes() 
+    {
         model.iniciaClientes();
     }
 }

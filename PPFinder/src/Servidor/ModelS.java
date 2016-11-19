@@ -20,8 +20,8 @@ import javax.swing.JTextArea;
  -- mensaje"
  *
  */
-public class ModelS {
-
+public class ModelS 
+{
     private static final int n_cli = 20;
 
     private ServidorThread servidor;
@@ -39,7 +39,8 @@ public class ModelS {
      * @throws java.net.UnknownHostException 
      ***************************************************************
      */
-    public ModelS(JTextArea consola) throws UnknownHostException {
+    public ModelS(JTextArea consola) throws UnknownHostException 
+    {
         this.consola = consola; ///< Esto nos servirá para manejar la consola
         out = new PrintStream(new TextAreaOutputStream(consola));
         System.setOut(out);
@@ -50,8 +51,8 @@ public class ModelS {
     /******************************************************************
      * Función que declara el server con un máximo de clientes indicado
      ******************************************************************/
-    public void CreaServer() {
-
+    public void CreaServer() 
+    {
         servidor = new ServidorThread(n_cli,vecinos,port,out, iteraciones); // Inicialmente que el servidor acepte únicamente 20 clientes (EN FASE DE PRUEBAS)
         System.out.println("Model -- CreaServer -- Servidor creado pero NO inicializado");
 
@@ -62,29 +63,30 @@ public class ModelS {
      * Función que pone en funcionamiento al servidor
     * ***************************************************************
      */
-    public void IniciaServer() {
-
+    public void IniciaServer() 
+    {
         servidor.start();
         System.out.println("Model -- CreaServer -- Servidor creado pero NO inicializado");
-
     }
+    
     /**
      * Esta clase nos servirá para usarla de consola.
      * Todos los System.out.println que se hagan saldran
      * por el jtextfield correspondiente.
      */
-    private static class TextAreaOutputStream extends OutputStream {
-
+    private static class TextAreaOutputStream extends OutputStream 
+    {
         private final JTextArea textControl;
 
-        public TextAreaOutputStream(JTextArea consola) {
+        public TextAreaOutputStream(JTextArea consola) 
+        {
             textControl = consola;
         }
 
         @Override
-        public void write(int i) throws IOException {
+        public void write(int i) throws IOException 
+        {
              textControl.append( String.valueOf( ( char )i ) );
         }
     }
-
 }

@@ -18,21 +18,24 @@ import javax.swing.JTextArea;
  * 
  * Los mensajes del controlador seguiran la estructura:
       "ControllerS -- nombre_de_funcion -- mensaje"
- * @author Jorge
  */
-public class ControllerS {
+public class ControllerS 
+{
     private ModelS model;    
     
-    public ControllerS(JTextArea console){
-        
-        try {
+    public ControllerS(JTextArea console)
+    {
+        try 
+        {
             this.model = new ModelS(console);
-        } catch (UnknownHostException ex) {
+        } catch (UnknownHostException ex) 
+        {
             Logger.getLogger(ControllerS.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public String UpdateMap() {
+    public String UpdateMap() 
+    {
         String coord = "Fallo al Actualizar el Mapa";
 
         if (!"Fallo al Actualizar el Mapa".equals(coord))
@@ -42,7 +45,8 @@ public class ControllerS {
         return coord;
     }
 
-    public void SendInfo() {
+    public void SendInfo() 
+    {
         Boolean correcto = false;
         /// correcto = model.sendInfo();
         if (correcto == false)
@@ -51,7 +55,8 @@ public class ControllerS {
             System.out.println("Controller Message -- SendInfo -- Location Sended");
     }
     
-    public String MapUpdate(String genero, String modo, String juego, String busco) {
+    public String MapUpdate(String genero, String modo, String juego, String busco) 
+    {
         String res = "No se ha encontrado nada con esos datos";
         ///< Peticion al modelo de encontrar jugadores y mostrarlos.
         ///< Con el nombre del cliente y las cordenadas será suficiente por ahora
@@ -62,7 +67,8 @@ public class ControllerS {
         return res;
     }
 
-    public void iniciarServidor() {
+    public void iniciarServidor() 
+    {
         model.IniciaServer();
     }
 }

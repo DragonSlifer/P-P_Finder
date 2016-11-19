@@ -4,8 +4,9 @@
 package Cliente;
 import java.util.TimerTask;
 
-public class MainFrame extends javax.swing.JFrame {
-    private ControllerC controlador;
+public class MainFrame extends javax.swing.JFrame 
+{
+    private final ControllerC controlador;
 
     /**
      * Creates new form MainFrame
