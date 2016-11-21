@@ -151,7 +151,7 @@ public class ClienteThread extends Thread
                 contador++;
                 mensaje = new String(mensaje_bytes).trim();
                 
-                System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
+                //System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
                 
                 address = servPaquete.getAddress();
                 mensaje = id + "-> recibido";
@@ -178,7 +178,7 @@ public class ClienteThread extends Thread
         int contador = 0;
         String mensaje;
         
-        while(!fin && contador != vecinos)
+        while(contador != vecinos - 1)
         {
             try 
             {
@@ -234,7 +234,6 @@ public class ClienteThread extends Thread
         {
             address = InetAddress.getByName("localhost");
             mensaje = id + "->" + tiempo_medio;
-            System.out.println(mensaje);
             
             mensaje_bytes = mensaje.getBytes();
             paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
@@ -268,7 +267,7 @@ public class ClienteThread extends Thread
                 
                 try 
                 {
-                    sleep(25000);
+                    sleep(35000);
                 } 
                 catch (InterruptedException ex) 
                 {
@@ -280,8 +279,6 @@ public class ClienteThread extends Thread
             
             socket.close();
             socketUDP.close();
-            
-            System.out.println("LOS CLIENTES FINALIZAN LA COMUNICACIÓN");
         } 
         catch (UnknownHostException ex) 
         {

@@ -59,7 +59,7 @@ public class ServidorThread extends Thread
             {
                 Socket socket_conexion = socketTCP.accept();
 
-                System.out.println("SERVIDOR ----> Nuevo cliente conectado" + clientes_conectados);
+                //System.out.println("SERVIDOR ----> Nuevo cliente conectado" + clientes_conectados);
                 vec_clientes.get(grupo).add(socket_conexion);
                 clientes_conectados++;
 
@@ -102,8 +102,8 @@ public class ServidorThread extends Thread
                     
                     p = new PrintStream(aux.getOutputStream());
                     b = new BufferedReader ( new InputStreamReader ( aux.getInputStream() ) );
-            
-                    p.println((i * 10 + j) + "start" + vec_clientes.get(i).size());
+                    
+                    p.println((i * vecinos + j) + "start" + vec_clientes.get(i).size());
                     
                     p.close();
                     b.close();
@@ -180,7 +180,7 @@ public class ServidorThread extends Thread
                     // realizamos el envio
                     socketUDP.send(env_paquete);
                     
-                    System.out.println("SERVIDOR ----> Coordenadas del cliente " + id_cli + " enviadas al cliente " + id);
+                    //System.out.println("SERVIDOR ----> Coordenadas del cliente " + id_cli + " enviadas al cliente " + id);
                 }
             }
         }
@@ -210,7 +210,7 @@ public class ServidorThread extends Thread
            
         try
         {
-            while(contador < 9)
+            while(contador < vecinos - 1)
             {
                 socketUDP.receive(resp_paquete);
 
@@ -221,13 +221,13 @@ public class ServidorThread extends Thread
                 contador++;
             }
             
-            mensaje = "fin";
+            /*mensaje = "fin";
             
             mensaje_bytes = mensaje.getBytes();
             
             env_paquete = new DatagramPacket(mensaje_bytes,mensaje.length(),address,puerto);
 
-            socketUDP.send(env_paquete);
+            socketUDP.send(env_paquete);*/
         }
         catch (IOException e) 
         {       
@@ -339,9 +339,9 @@ public class ServidorThread extends Thread
                             vec.add(recv_paquete);
                             mensaje = new String(mensaje_bytes).trim();
                             vec2.add(mensaje);
-                            System.out.println("***********************************************************************************************\n"
-                            + "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje 
-                            + "\n***********************************************************************************************");
+                            //System.out.println("***********************************************************************************************\n"
+                            //+ "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje 
+                            //+ "\n***********************************************************************************************");
                         }
 
                     recv_paquete1 = vec.get(contador);
@@ -370,7 +370,7 @@ public class ServidorThread extends Thread
                 
                 try 
                 {
-                    sleep(20000);
+                    sleep(30000);
                 } 
                 catch (InterruptedException ex) 
                 {
