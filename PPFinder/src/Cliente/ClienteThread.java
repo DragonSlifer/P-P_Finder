@@ -116,8 +116,8 @@ public class ClienteThread extends Thread
         {
             socketUDP = new DatagramSocket();
             ///< Esto manda la localización
-            address = InetAddress.getByName("localhost");
-            //address = InetAddress.getByName("151.182.86.64");
+            //address = InetAddress.getByName("localhost");
+            address = InetAddress.getByName("37.133.216.11");
             DecimalFormat decimales = new DecimalFormat("0.0000");
             mensaje = id + "->" + decimales.format(latitud) + " / " + decimales.format(longitud);
             mensaje_bytes = mensaje.getBytes();
@@ -202,7 +202,7 @@ public class ClienteThread extends Thread
             }
         }
         
-        System.out.print("CLIENTE ----> El cliente " + id + " a recibido " + (contador) + " confirmaciones\n");
+        System.out.print("CLIENTE ----> El cliente " + id + " ha recibido " + (contador) + " confirmaciones\n");
     }
     
     /******************************************************************
@@ -254,7 +254,7 @@ public class ClienteThread extends Thread
             peticionConexion(); // Envio mediante TCP inicial y///< En caso de que la Informacion haya sido actualizada, la reenvi de actualizacion
             establecerConexion(); //Esta funcion esperara el mensaje del servidor confirmando el inciio de la comunicación
             
-            for(int i = 0; i < 2; i++)
+            for(int i = 0; i < iteraciones; i++)
             {
                 time_start = System.currentTimeMillis();
                 enviarCoordenadas(); // Envio mediante UDP de la localizacion
@@ -267,7 +267,7 @@ public class ClienteThread extends Thread
                 
                 try 
                 {
-                    sleep(35000);
+                    sleep(65000);
                 } 
                 catch (InterruptedException ex) 
                 {
