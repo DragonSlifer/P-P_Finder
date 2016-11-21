@@ -74,6 +74,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     
@@ -113,6 +114,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     
@@ -185,6 +187,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     
@@ -207,12 +210,8 @@ public class ServidorThread extends Thread
            
         try
         {
-            
-            socketUDP.setSoTimeout(20000);
             while(contador < vecinos - 1)
             {
-                try
-                {
                 socketUDP.receive(resp_paquete);
                 System.out.println("MI CONTADOR " + contador);
                 env_paquete = new DatagramPacket(mensaje_bytes,mensaje_bytes.length,address,puerto);
@@ -220,11 +219,6 @@ public class ServidorThread extends Thread
                 socketUDP.send(env_paquete);
 
                 contador++;
-                }
-                catch (SocketTimeoutException s)
-                {
-                    System.out.println("Socket timed out!");
-                }
             }
             
             /*mensaje = "fin";
@@ -238,6 +232,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 
@@ -274,6 +269,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
     
@@ -397,6 +393,7 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 }
