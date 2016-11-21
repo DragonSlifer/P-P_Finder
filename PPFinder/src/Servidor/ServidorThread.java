@@ -208,17 +208,25 @@ public class ServidorThread extends Thread
         DatagramPacket resp_paquete = new DatagramPacket(mensaje_bytes,256);
         DatagramPacket env_paquete;
            
+        
+        
         try
         {
+            socketUDP.setSoTimeout(20000);
             while(contador < vecinos - 1)
             {
+                try
+                {
                 socketUDP.receive(resp_paquete);
+                 } catch (SocketTimeoutException e) {
                 System.out.println("MI CONTADOR " + contador);
                 env_paquete = new DatagramPacket(mensaje_bytes,mensaje_bytes.length,address,puerto);
 
                 socketUDP.send(env_paquete);
 
                 contador++;
+                continue;
+                }
             }
             
             /*mensaje = "fin";
