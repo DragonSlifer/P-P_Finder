@@ -25,7 +25,7 @@ public class ClienteThread extends Thread
     DatagramSocket socketUDP;
     PrintStream out;
     double latitud = 0, longitud = 0;
-    long time_start, time_end, time_total;
+    long time_start, time_end, time_total, tiempo_acumulado = 0, tiempo_medio;
 
     /******************************************************************
      * Constructor de la clase cliente al cual se le pasa el puerto
@@ -218,20 +218,24 @@ public class ClienteThread extends Thread
     }
     
     /******************************************************************
-    * Se encarga de enviar el tiempo de ejecución del cliente al 
+    * Se encarga de enviar el tiempo medio de ejecución del cliente al 
     * servidor
     * ****************************************************************/
-    private void enviarTiempos(long tiempo)
+    private void enviarTiempos()
     {
         byte[] mensaje_bytes;
         DatagramPacket paquete;
         InetAddress address;
         String mensaje;
         
+        tiempo_medio = tiempo_acumulado / iteraciones;
+        
         try 
         {
             address = InetAddress.getByName("localhost");
-            mensaje = "" + tiempo;
+            mensaje = id + "->" + tiempo_medio;
+            System.out.println(mensaje);
+            
             mensaje_bytes = mensaje.getBytes();
             paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
 
@@ -258,8 +262,8 @@ public class ClienteThread extends Thread
                 recibirCoordenadas(); // Recibimos las coordenadas del resto de vecinos
                 recibirConfirmaciones(); //El cliente espera hasta recibir la confirmación de todos sus vecinos
                 time_end = System.currentTimeMillis();
-                time_total = (time_end - time_start) / 1000; //Tiempo total en segundos
-                //enviarTiempos(time_total); //Enviamos los tiempos al servidor
+                time_total = (time_end - time_start); //Tiempo total en segundos
+                tiempo_acumulado += time_total;
                 actualizarCoordenadas(); //Aqui se calcularian las nuevas coordenadas
                 
                 try 
@@ -271,6 +275,8 @@ public class ClienteThread extends Thread
                     Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            enviarTiempos();
             
             socket.close();
             socketUDP.close();

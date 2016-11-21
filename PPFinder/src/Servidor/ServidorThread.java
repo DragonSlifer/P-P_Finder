@@ -13,7 +13,7 @@ public class ServidorThread extends Thread
     ServerSocket socketTCP;
     DatagramSocket socketUDP;
     Vector<Vector<Socket>> vec_clientes = new Vector<Vector<Socket>>(num_clientes);
-    Vector<Vector<Vector<Long>>> vec_tiempos = new Vector<Vector<Vector<Long>>>(num_clientes);
+    Vector<Vector<Long>> vec_tiempos = new Vector<Vector<Long>>(num_clientes);
     PrintStream out;
     
     /******************************************************************
@@ -53,6 +53,7 @@ public class ServidorThread extends Thread
         {
             socketTCP = new ServerSocket(puerto_server);
             vec_clientes.add(new Vector<Socket>(vecinos));
+            vec_tiempos.add(new Vector<Long>(vecinos));
             System.out.println("SERVIDOR ----> Esperando conexion de clientes...");
             while(clientes_conectados < num_clientes) 
             {
@@ -66,6 +67,7 @@ public class ServidorThread extends Thread
                 {
                     grupo++;
                     vec_clientes.add(new Vector<Socket>(vecinos));
+                    vec_tiempos.add(new Vector<Long>(vecinos));
                 } 
             }
         }
@@ -240,10 +242,11 @@ public class ServidorThread extends Thread
         }
     }
     
-    void recibirTiempos(int grupo_cli, int id_cli)
+    void recibirTiempos()
     {
         String mensaje;
         Long tiempo;
+        int index, id, grupo;
         byte[] mensaje_bytes = new byte[256];
         DatagramPacket resp_paquete = new DatagramPacket(mensaje_bytes,256);
            
@@ -253,9 +256,19 @@ public class ServidorThread extends Thread
                
             mensaje = new String(mensaje_bytes).trim();
                 
-            tiempo = Long.parseLong(mensaje);
+            index = mensaje.indexOf('-');
+            
+            id = Integer.parseInt(mensaje.substring(0, index));
+            
+            index = mensaje.indexOf('>');
+            
+            tiempo = Long.parseLong(mensaje.substring(index + 1, mensaje.length()));
                 
-            vec_tiempos.get(grupo_cli).get(id_cli).add(tiempo);
+            grupo = obtenerGrupo(id);
+            
+            vec_tiempos.get(grupo).add(tiempo);
+            
+            System.out.println(id + "->" + tiempo);
         }
         catch (IOException e) 
         {       
@@ -332,8 +345,6 @@ public class ServidorThread extends Thread
 
                     tramitarRespuestas(grupo_cli, id_cli, puerto, address); // Esperamos las confirmaciones de los vecinos y las reenviamos al cliente que mando las coordenadas
                     
-                    //recibirTiempos(grupo_cli, id_cli);
-                    
                     contador++;
                 } 
                 while (contador < num_clientes);
@@ -346,6 +357,11 @@ public class ServidorThread extends Thread
                 {
                     Logger.getLogger(ServidorThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            
+            for(int i = 0; i < num_clientes; i++)
+            {
+                recibirTiempos();
             }
             
             socketTCP.close();
