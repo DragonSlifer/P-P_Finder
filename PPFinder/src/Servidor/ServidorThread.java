@@ -213,7 +213,7 @@ public class ServidorThread extends Thread
             while(contador < vecinos - 1)
             {
                 socketUDP.receive(resp_paquete);
-
+                System.out.println("MI CONTADOR " + contador);
                 env_paquete = new DatagramPacket(mensaje_bytes,mensaje_bytes.length,address,puerto);
 
                 socketUDP.send(env_paquete);
