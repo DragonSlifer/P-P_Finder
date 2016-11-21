@@ -280,6 +280,8 @@ public class ClienteThread extends Thread
             
             socket.close();
             socketUDP.close();
+            
+            System.out.println("LOS CLIENTES FINALIZAN LA COMUNICACIÓN");
         } 
         catch (UnknownHostException ex) 
         {

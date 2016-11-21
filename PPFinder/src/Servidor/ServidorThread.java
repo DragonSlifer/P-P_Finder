@@ -180,7 +180,7 @@ public class ServidorThread extends Thread
                     // realizamos el envio
                     socketUDP.send(env_paquete);
                     
-                    System.out.println("SERVIDOR ----> Coordenadas del cliente " + (id_cli + grupo_cli*10) + " enviadas al cliente " + (i + grupo_cli*10));
+                    System.out.println("SERVIDOR ----> Coordenadas del cliente " + id_cli + " enviadas al cliente " + id);
                 }
             }
         }
@@ -317,6 +317,7 @@ public class ServidorThread extends Thread
             socketUDP = new DatagramSocket(puerto_server);
             
             inicioComunicacion(); // Mandamos el mensaje a los clientes que les indica que puede empezar la comunicación
+            
             for(int k = 0; k < iteraciones; k++)
             {
                 System.out.println("\n#################################################################\n" 
@@ -351,14 +352,13 @@ public class ServidorThread extends Thread
                     address = recv_paquete1.getAddress();
 
                     id_cli = obtenerId(mensaje);
-                    grupo_cli = obtenerGrupo(id_cli); //Obtenemos el grupo al que pertenece el cliente que manda las coordenadas               
+                    grupo_cli = obtenerGrupo(id_cli); //Obtenemos el grupo al que pertenece el cliente que manda las coordenadas  
 
                     if(contador == 0)
                         for(int j = 0; j < vec.size(); j++)
-                        {
+                        { 
                             id_cli1 = obtenerId(vec2.get(j));
                             grupo_cli1 = obtenerGrupo(id_cli1);
-
                             distribuirCoordenadas(grupo_cli1, id_cli1, vec.get(j), vec, vec2); //Distribuimos sus coordenadas entre todos sus vecinos
                         }
 
@@ -387,6 +387,8 @@ public class ServidorThread extends Thread
             socketUDP.close();
             
             calcularTiempos();
+            
+            System.out.println("EL SERVIDOR FINALIZA LA COMUNICACIÓN");
         }
         catch (IOException e) 
         {       
