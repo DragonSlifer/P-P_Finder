@@ -25,7 +25,7 @@ public class ModelS
     private static final int n_cli = 100;
 
     private ServidorThread servidor;
-    private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
+    private final int port = 5000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private final JTextArea consola;
     private final int vecinos = 10;
     private final int iteraciones = 2;
