@@ -74,7 +74,6 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
     
@@ -114,7 +113,6 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
     
@@ -187,7 +185,6 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
     
@@ -277,7 +274,6 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
     
@@ -401,7 +397,6 @@ public class ServidorThread extends Thread
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
 }

@@ -131,7 +131,6 @@ public class ClienteThread extends Thread
         catch (IOException e) 
         {
             System.err.println("Cliente -- enviarCoordenadas -- "  + e.getMessage());
-            System.exit(1);
         }
     }
     
