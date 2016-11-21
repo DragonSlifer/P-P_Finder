@@ -28,7 +28,7 @@ public class ModelC
 
     private final Vector<ClienteThread> v_cli;
     private InetAddress ip;
-    private final int port = 5000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
+    private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private final JTextArea consola;
     private final int vecinos = 10;
     private final int iteraciones = 2;
@@ -62,8 +62,8 @@ public class ModelC
     {
         try 
         {
-            ip = InetAddress.getLocalHost();
-            //ip = InetAddress.getByName("151.182.86.64"); Esta seria para hacerlo con otro pc, la ip es la mia publica, habria que poner la del orde que sea el servidor
+            //ip = InetAddress.getLocalHost();
+            ip = InetAddress.getByName("37.133.216.11"); 
 
             for (int i = 0; i < n_cli; i++) 
             {
