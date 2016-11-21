@@ -267,7 +267,7 @@ public class ClienteThread extends Thread
                 
                 try 
                 {
-                    sleep(65000);
+                    sleep(25000);
                 } 
                 catch (InterruptedException ex) 
                 {

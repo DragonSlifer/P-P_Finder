@@ -370,7 +370,7 @@ public class ServidorThread extends Thread
                 
                 try 
                 {
-                    sleep(60000);
+                    sleep(20000);
                 } 
                 catch (InterruptedException ex) 
                 {
