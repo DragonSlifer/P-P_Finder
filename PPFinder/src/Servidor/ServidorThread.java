@@ -213,18 +213,12 @@ public class ServidorThread extends Thread
             while(contador < 9)
             {
                 socketUDP.receive(resp_paquete);
-                
-                /*mensaje = new String(mensaje_bytes).trim();
-                
-                id = obtenerId(mensaje);*/
 
                 env_paquete = new DatagramPacket(mensaje_bytes,mensaje_bytes.length,address,puerto);
 
                 socketUDP.send(env_paquete);
 
                 contador++;
-                
-                //System.out.println("SERVIDOR ----> Recibo confirmacion del cliente " + id + " para el cliente " + id_cli);
             }
             
             mensaje = "fin";
@@ -241,7 +235,11 @@ public class ServidorThread extends Thread
             System.exit(1);
         }
     }
-    
+
+    /******************************************************************
+    * Se encarga de recibir el tiempo medio de cada uno de los clientes
+    * y introducirlo en un vector con los tiempos de cada grupo
+    * ****************************************************************/    
     void recibirTiempos()
     {
         String mensaje;
@@ -267,13 +265,34 @@ public class ServidorThread extends Thread
             grupo = obtenerGrupo(id);
             
             vec_tiempos.get(grupo).add(tiempo);
-            
-            System.out.println(id + "->" + tiempo);
         }
         catch (IOException e) 
         {       
             System.err.println(e.getMessage());
             System.exit(1);
+        }
+    }
+    
+    /******************************************************************
+    * Se encarga de calcular todos los tiempos que se necesitan para
+    * las estadisticas de ejecución
+    * ****************************************************************/
+    void calcularTiempos()
+    {
+        float tiempo_medio;
+        //Tiempo medio de grupos
+        
+        for(int i = 0; i < vec_tiempos.size(); i++)
+        {
+            tiempo_medio = 0;
+            for(int j = 0; j < vec_tiempos.get(i).size(); j++)
+            {
+                tiempo_medio += vec_tiempos.get(i).get(j);
+            }
+            
+            tiempo_medio /= 1000;
+            
+            System.out.println("Tiempo medio del grupo " + i + " = " + tiempo_medio + " segundos");
         }
     }
     
@@ -366,6 +385,8 @@ public class ServidorThread extends Thread
             
             socketTCP.close();
             socketUDP.close();
+            
+            calcularTiempos();
         }
         catch (IOException e) 
         {       
