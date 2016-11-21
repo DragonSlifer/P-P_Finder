@@ -28,7 +28,7 @@ public class ModelS
     private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
     private final JTextArea consola;
     private final int vecinos = 10;
-    private final int iteraciones = 2;
+    private final int iteraciones = 1;
     PrintStream out;
 
     /**
