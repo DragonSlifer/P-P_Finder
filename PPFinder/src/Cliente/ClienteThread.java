@@ -8,6 +8,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Vector;
@@ -141,6 +143,12 @@ public class ClienteThread extends Thread
         InetAddress address;
         String mensaje;
         
+        try {
+            socketUDP.setSoTimeout(20000);
+        } catch (SocketException ex) {
+            Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         while(contador < vecinos - 1)
         {
             try 
@@ -160,6 +168,10 @@ public class ClienteThread extends Thread
                 
                 socketUDP.send(paquete);
             } 
+            catch (SocketTimeoutException s)
+            {
+                System.out.println("Socket timed out!");
+            }
             catch (IOException ex) 
             {
                 Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
