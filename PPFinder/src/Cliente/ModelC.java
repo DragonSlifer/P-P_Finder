@@ -24,7 +24,7 @@ import javax.swing.JTextArea;
  */
 public class ModelC 
 {
-    private static final int n_cli = 1000;
+    private static final int n_cli = 100;
 
     private final Vector<ClienteThread> v_cli;
     private InetAddress ip;
