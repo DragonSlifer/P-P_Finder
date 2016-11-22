@@ -46,6 +46,7 @@ public class ViewS extends javax.swing.JFrame {
         servidorLabel.setText("Servidor");
         jPanel1.add(servidorLabel, java.awt.BorderLayout.PAGE_START);
 
+        consola.setEditable(false);
         consola.setBackground(new java.awt.Color(0, 0, 0));
         consola.setColumns(20);
         consola.setForeground(new java.awt.Color(255, 255, 255));
