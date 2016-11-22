@@ -116,8 +116,8 @@ public class ClienteThread extends Thread
         {
             socketUDP = new DatagramSocket();
             ///< Esto manda la localización
-            address = InetAddress.getByName("localhost");
-            //address = InetAddress.getByName("37.133.216.11");
+            //address = InetAddress.getByName("localhost");
+            address = InetAddress.getByName("37.133.216.11");
             DecimalFormat decimales = new DecimalFormat("0.0000");
             mensaje = id + "->" + decimales.format(latitud) + " / " + decimales.format(longitud);
             mensaje_bytes = mensaje.getBytes();
@@ -189,10 +189,10 @@ public class ClienteThread extends Thread
                  // Lo formateamos
                 mensaje = new String(mensaje_bytes).trim();
                 
-                if(mensaje.contains("fin"))
+                /*if(mensaje.contains("fin"))
                 {     
                     fin = true;
-                }
+                }*/
                     
                 contador++;
             } 

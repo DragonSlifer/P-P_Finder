@@ -214,13 +214,13 @@ public class ServidorThread extends Thread {
                     contador++;
             }
 
-            mensaje = "fin";
+            /*mensaje = "fin";
             
             mensaje_bytes = mensaje.getBytes();
             
             env_paquete = new DatagramPacket(mensaje_bytes,mensaje.length(),address,puerto);
 
-            socketUDP.send(env_paquete);
+            socketUDP.send(env_paquete);*/
         } catch (IOException e) {
             if (!to) {
                 System.err.println(e.getMessage());
