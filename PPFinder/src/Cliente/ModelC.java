@@ -24,11 +24,11 @@ import javax.swing.JTextArea;
  */
 public class ModelC 
 {
-    private static final int n_cli = 100;
+    private static final int n_cli = 5000;
 
     private final Vector<ClienteThread> v_cli;
     private InetAddress ip;
-    private final int port = 6000; // CAMBIAR ESTO PORQUE NO SÉ QUE PUERTO ES EL DEL CLIENTE (PUERTO DIFERENTE PARA CADA CLIENTE?)
+    private final int port = 6000;
     private final JTextArea consola;
     private final int vecinos = 10;
     private final int iteraciones = 1;
@@ -62,8 +62,8 @@ public class ModelC
     {
         try 
         {
-            //ip = InetAddress.getLocalHost();
-            ip = InetAddress.getByName("37.133.216.11"); 
+            ip = InetAddress.getLocalHost();
+            //ip = InetAddress.getByName("37.133.216.11"); 
 
             for (int i = 0; i < n_cli; i++) 
             {

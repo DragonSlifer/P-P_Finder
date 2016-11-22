@@ -8,7 +8,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Vector;
@@ -117,8 +116,8 @@ public class ClienteThread extends Thread
         {
             socketUDP = new DatagramSocket();
             ///< Esto manda la localización
-            //address = InetAddress.getByName("localhost");
-            address = InetAddress.getByName("37.133.216.11");
+            address = InetAddress.getByName("localhost");
+            //address = InetAddress.getByName("37.133.216.11");
             DecimalFormat decimales = new DecimalFormat("0.0000");
             mensaje = id + "->" + decimales.format(latitud) + " / " + decimales.format(longitud);
             mensaje_bytes = mensaje.getBytes();
@@ -178,39 +177,29 @@ public class ClienteThread extends Thread
         boolean fin = false;
         int contador = 0;
         String mensaje;
-        boolean to = false;
         
-        try
+        while(contador != vecinos - 1)
         {
-            while(contador != vecinos - 1)
+            try 
             {
-                try 
-                {
-                    mensaje_bytes = new byte[256];
-                    servPaquete = new DatagramPacket(mensaje_bytes, 256);
-                    socketUDP.receive(servPaquete);
-
-                     // Lo formateamos
-                    mensaje = new String(mensaje_bytes).trim();
-
-                    if(mensaje.contains("fin"))
-                    {     
-                        fin = true;
-                    }
-
-                    contador++;
-                } 
-                catch (SocketTimeoutException e) 
-                {
-                    to = true;
-                    continue;
+                mensaje_bytes = new byte[256];
+                servPaquete = new DatagramPacket(mensaje_bytes, 256);
+                socketUDP.receive(servPaquete);
+                
+                 // Lo formateamos
+                mensaje = new String(mensaje_bytes).trim();
+                
+                if(mensaje.contains("fin"))
+                {     
+                    fin = true;
                 }
-
+                    
+                contador++;
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-        catch (IOException ex) 
-        {
-            Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         System.out.print("CLIENTE ----> El cliente " + id + " ha recibido " + (contador) + " confirmaciones\n");

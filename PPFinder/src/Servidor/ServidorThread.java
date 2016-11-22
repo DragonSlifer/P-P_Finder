@@ -199,29 +199,28 @@ public class ServidorThread extends Thread {
         DatagramPacket env_paquete;
         boolean to = false;
         try {
-            socketUDP.setSoTimeout(20000);
             while (contador < vecinos - 1) {
-                try {
-                    socketUDP.receive(resp_paquete);
+                    socketUDP.setSoTimeout(200);
+                    try {
+                        socketUDP.receive(resp_paquete);
+                    } catch (SocketTimeoutException e) {
+                        System.err.println(e.getMessage());
+                    }
                     System.out.println("MI CONTADOR " + contador);
                     env_paquete = new DatagramPacket(mensaje_bytes, mensaje_bytes.length, address, puerto);
 
                     socketUDP.send(env_paquete);
 
                     contador++;
-                } catch (SocketTimeoutException e) {
-                    to = true;
-                    contador++;
-                }
             }
 
-            /*mensaje = "fin";
+            mensaje = "fin";
             
             mensaje_bytes = mensaje.getBytes();
             
             env_paquete = new DatagramPacket(mensaje_bytes,mensaje.length(),address,puerto);
 
-            socketUDP.send(env_paquete);*/
+            socketUDP.send(env_paquete);
         } catch (IOException e) {
             if (!to) {
                 System.err.println(e.getMessage());
@@ -244,21 +243,24 @@ public class ServidorThread extends Thread {
         DatagramPacket resp_paquete = new DatagramPacket(mensaje_bytes, 256);
 
         try {
-            socketUDP.receive(resp_paquete);
+            socketUDP.setSoTimeout(20000);
+            try {
+                socketUDP.receive(resp_paquete);
+            } catch (SocketTimeoutException e) {
+                System.err.println(e.getMessage());
+            }
 
             mensaje = new String(mensaje_bytes).trim();
-
-            index = mensaje.indexOf('-');
-
-            id = Integer.parseInt(mensaje.substring(0, index));
-
-            index = mensaje.indexOf('>');
-
-            tiempo = Long.parseLong(mensaje.substring(index + 1, mensaje.length()));
-
-            grupo = obtenerGrupo(id);
-
-            vec_tiempos.get(grupo).add(tiempo);
+            if (mensaje != null) {
+                index = mensaje.indexOf('-');
+                id = Integer.parseInt(mensaje.substring(0, index));
+                index = mensaje.indexOf('>');
+                tiempo = Long.parseLong(mensaje.substring(index + 1, mensaje.length()));
+                grupo = obtenerGrupo(id);
+                vec_tiempos.get(grupo).add(tiempo);
+            } else {
+                packageLost();
+            }
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -322,13 +324,22 @@ public class ServidorThread extends Thread {
                             byte[] mensaje_bytes = new byte[256];
                             DatagramPacket recv_paquete = new DatagramPacket(mensaje_bytes, 256);
                             // Recibimos el paquete
-                            socketUDP.receive(recv_paquete);
-                            vec.add(recv_paquete);
+                            socketUDP.setSoTimeout(20000);
+                            try {
+                                socketUDP.receive(recv_paquete);
+                            } catch (SocketTimeoutException e) {
+                                System.err.println(e.getMessage());
+                            }
                             mensaje = new String(mensaje_bytes).trim();
-                            vec2.add(mensaje);
-                            //System.out.println("***********************************************************************************************\n"
-                            //+ "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje 
-                            //+ "\n***********************************************************************************************");
+                            if (mensaje != null) {          ///< Si el mensaje no es nulo, tenemos mensaje
+                                vec.add(recv_paquete);
+                                vec2.add(mensaje);
+                                System.out.println("***********************************************************************************************\n"
+                                        + "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje
+                                        + "\n***********************************************************************************************");
+                            } else {                        ///< Si el mensaje es nulo, hemos perdido el paquete
+                                packageLost();              ///< Notificamos de la perdida del paquete
+                            }
                         }
                     }
 
@@ -354,12 +365,12 @@ public class ServidorThread extends Thread {
 
                     contador++;
                 } while (contador < num_clientes);
-
+                /*
                 try {
                     sleep(20000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ServidorThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
             }
 
             for (int i = 0; i < num_clientes; i++) {
@@ -376,5 +387,11 @@ public class ServidorThread extends Thread {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+    }
+
+    public void packageLost() {
+        System.out.println("***********************************************************************************************\n"
+                + "SERVIDOR ----> SE HA PERDIDO UN PAQUETE"
+                + "\n***********************************************************************************************");
     }
 }
