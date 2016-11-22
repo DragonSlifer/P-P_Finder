@@ -22,13 +22,13 @@ import javax.swing.JTextArea;
  */
 public class ModelS 
 {
-    private static final int n_cli = 100;
+    private static final int n_cli = 5000;
 
     private ServidorThread servidor;
     private final int port = 6000;
     private final JTextArea consola;
     private final int vecinos = 10;
-    private final int iteraciones = 1;
+    private final int iteraciones = 100;
     PrintStream out;
 
     /**
