@@ -211,7 +211,7 @@ public class ServidorThread extends Thread {
                     contador++;
                 } catch (SocketTimeoutException e) {
                     to = true;
-                    continue;
+                    contador++;
                 }
             }
 
