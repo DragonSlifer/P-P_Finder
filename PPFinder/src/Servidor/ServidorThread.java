@@ -322,13 +322,18 @@ public class ServidorThread extends Thread {
                             byte[] mensaje_bytes = new byte[256];
                             DatagramPacket recv_paquete = new DatagramPacket(mensaje_bytes, 256);
                             // Recibimos el paquete
-                            socketUDP.receive(recv_paquete);
+                            socketUDP.setSoTimeout(20);
+                            try{
+                                socketUDP.receive(recv_paquete);
+                            }catch (SocketTimeoutException e){
+                                System.err.println(e.getMessage());
+                            }
                             vec.add(recv_paquete);
                             mensaje = new String(mensaje_bytes).trim();
                             vec2.add(mensaje);
-                            //System.out.println("***********************************************************************************************\n"
-                            //+ "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje 
-                            //+ "\n***********************************************************************************************");
+                            System.out.println("***********************************************************************************************\n"
+                            + "SERVIDOR ----> El servidor recibe las coordenadas del cliente " + mensaje 
+                            + "\n***********************************************************************************************");
                         }
                     }
 
@@ -354,12 +359,12 @@ public class ServidorThread extends Thread {
 
                     contador++;
                 } while (contador < num_clientes);
-
+/*
                 try {
                     sleep(20000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(ServidorThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }*/
             }
 
             for (int i = 0; i < num_clientes; i++) {

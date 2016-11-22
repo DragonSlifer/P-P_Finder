@@ -62,8 +62,8 @@ public class ModelC
     {
         try 
         {
-            //ip = InetAddress.getLocalHost();
-            ip = InetAddress.getByName("37.133.216.11"); 
+            ip = InetAddress.getLocalHost();
+            //ip = InetAddress.getByName("37.133.216.11"); 
 
             for (int i = 0; i < n_cli; i++) 
             {
