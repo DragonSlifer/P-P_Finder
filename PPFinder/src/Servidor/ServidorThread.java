@@ -327,7 +327,7 @@ public class ServidorThread extends Thread {
                             byte[] mensaje_bytes = new byte[256];
                             DatagramPacket recv_paquete = new DatagramPacket(mensaje_bytes, 256);
                             // Recibimos el paquete
-                            socketUDP.setSoTimeout(20000);
+                            socketUDP.setSoTimeout(5000);
                             try {
                                 socketUDP.receive(recv_paquete);
                             } catch (SocketTimeoutException e) {
