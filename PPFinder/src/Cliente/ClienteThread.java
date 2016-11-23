@@ -147,20 +147,21 @@ public class ClienteThread extends Thread
         {
             try 
             {
+                socketUDP.setSoTimeout(5000);
                 mensaje_bytes = new byte[256];
                 servPaquete = new DatagramPacket(mensaje_bytes, 256);
+                try
+                {
                 socketUDP.receive(servPaquete);
+                } catch (SocketTimeoutException e) 
+                {
+                        System.err.println(e.getMessage());
+                    }
                 contador++;
                 mensaje = new String(mensaje_bytes).trim();
                 
                 System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
                 
-                /*address = servPaquete.getAddress();
-                mensaje = id + "-> recibido";
-                mensaje_bytes = mensaje.getBytes();
-                paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
-                
-                socketUDP.send(paquete);*/
                 vec1.add(servPaquete.getAddress());
             } 
             catch (IOException ex) 
