@@ -368,12 +368,6 @@ public class ServidorThread extends Thread {
 
                     contador++;
                 } while (contador < num_clientes);
-                
-                try {
-                    sleep(20000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(ServidorThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
 
             for (int i = 0; i < num_clientes; i++) {
