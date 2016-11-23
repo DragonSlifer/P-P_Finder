@@ -363,7 +363,7 @@ public class ServidorThread extends Thread {
                             distribuirCoordenadas(grupo_cli1, id_cli1, vec.get(j), vec, vec2); //Distribuimos sus coordenadas entre todos sus vecinos
                         }
                     }
-
+                    System.out.print("HE LLEGADO AQUI");
                     tramitarRespuestas(grupo_cli, id_cli, puerto, address); // Esperamos las confirmaciones de los vecinos y las reenviamos al cliente que mando las coordenadas
 
                     contador++;
