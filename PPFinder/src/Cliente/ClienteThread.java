@@ -141,6 +141,7 @@ public class ClienteThread extends Thread
         int contador = 0;
         InetAddress address;
         String mensaje;
+        Vector<InetAddress> vec1 = new Vector<InetAddress>();
         
         while(contador < vecinos - 1)
         {
@@ -154,7 +155,25 @@ public class ClienteThread extends Thread
                 
                 System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
                 
-                address = servPaquete.getAddress();
+                /*address = servPaquete.getAddress();
+                mensaje = id + "-> recibido";
+                mensaje_bytes = mensaje.getBytes();
+                paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
+                
+                socketUDP.send(paquete);*/
+                vec1.add(servPaquete.getAddress());
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        for(int i = 0; i < vec1.size(); i++)
+        {
+            try 
+            {
+                address = vec1.get(i);
                 mensaje = id + "-> recibido";
                 mensaje_bytes = mensaje.getBytes();
                 paquete = new DatagramPacket(mensaje_bytes, mensaje.length(), address, puerto);
@@ -270,14 +289,6 @@ public class ClienteThread extends Thread
             {
                 time_start = System.currentTimeMillis();
                 enviarCoordenadas(); // Envio mediante UDP de la localizacion
-                try 
-                {
-                    sleep(5000);
-                } 
-                catch (InterruptedException ex) 
-                {
-                    Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 recibirCoordenadas(); // Recibimos las coordenadas del resto de vecinos
                 recibirConfirmaciones(); //El cliente espera hasta recibir la confirmación de todos sus vecinos
                 time_end = System.currentTimeMillis();
