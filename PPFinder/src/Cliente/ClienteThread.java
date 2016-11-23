@@ -140,6 +140,7 @@ public class ClienteThread extends Thread
         DatagramPacket servPaquete, paquete;
         int contador = 0;
         InetAddress address;
+        boolean ok = true;
         String mensaje;
         Vector<InetAddress> vec1 = new Vector<InetAddress>();
         
@@ -155,14 +156,18 @@ public class ClienteThread extends Thread
                 socketUDP.receive(servPaquete);
                 } catch (SocketTimeoutException e) 
                 {
+                    ok = false;
                         System.err.println(e.getMessage());
                     }
                 contador++;
+                if(ok)
+                {
                 mensaje = new String(mensaje_bytes).trim();
                 
                 System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
                 
                 vec1.add(servPaquete.getAddress());
+                }
             } 
             catch (IOException ex) 
             {
