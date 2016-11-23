@@ -169,6 +169,15 @@ public class ClienteThread extends Thread
             }
         }
         
+        try 
+        {
+            sleep(5000);
+        } 
+        catch (InterruptedException ex) 
+        {
+            Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         for(int i = 0; i < vec1.size(); i++)
         {
             try 
