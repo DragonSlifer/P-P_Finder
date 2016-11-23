@@ -218,7 +218,7 @@ public class ClienteThread extends Thread
         
         try
         {
-            while(contador != vecinos - 1)
+            while(contador < vecinos - 1)
             {
                 socketUDP.setSoTimeout(20000);
                 mensaje_bytes = new byte[256];
