@@ -161,9 +161,10 @@ public class ClienteThread extends Thread
                         System.err.println(e.getMessage());
                     }
                 contador++;
-                if(ok)
-                {
                 mensaje = new String(mensaje_bytes).trim();
+                if(ok && mensaje.contains("/"))
+                {
+                
                 
                 System.out.println("CLIENTE ----> El cliente " + id + " recibe las coordenadas " + mensaje);
                 
