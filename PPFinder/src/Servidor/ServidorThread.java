@@ -199,20 +199,25 @@ public class ServidorThread extends Thread {
         DatagramPacket env_paquete;
         boolean to = false;
         try {
-            socketUDP.setSoTimeout(5000);
+            socketUDP.setSoTimeout(2000);
             while (contador < vecinos - 1) {
-                    
+                    to = false;
                     contador++;
                     try {
                         socketUDP.receive(resp_paquete);
                     } catch (SocketTimeoutException e) {
+                        to = true;
                         System.err.println(e.getMessage());
                         break;
                     }
+                    mensaje = new String(mensaje_bytes).trim();
+                    if(!to && mensaje.contains("recibido"))
+                    {
                     //System.out.println("MI CONTADOR " + contador);
                     env_paquete = new DatagramPacket(mensaje_bytes, mensaje_bytes.length, address, puerto);
 
                     socketUDP.send(env_paquete);
+                    }
 
                     //contador++;
             }
