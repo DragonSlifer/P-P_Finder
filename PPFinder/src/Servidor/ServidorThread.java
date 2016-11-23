@@ -199,7 +199,7 @@ public class ServidorThread extends Thread {
         DatagramPacket env_paquete;
         boolean to = false;
         try {
-            socketUDP.setSoTimeout(7000);
+            socketUDP.setSoTimeout(5000);
             while (contador < vecinos - 1) {
                     
                     contador++;
@@ -327,7 +327,7 @@ public class ServidorThread extends Thread {
                             byte[] mensaje_bytes = new byte[256];
                             DatagramPacket recv_paquete = new DatagramPacket(mensaje_bytes, 256);
                             // Recibimos el paquete
-                            socketUDP.setSoTimeout(200);
+                            socketUDP.setSoTimeout(20000);
                             try {
                                 socketUDP.receive(recv_paquete);
                             } catch (SocketTimeoutException e) {
