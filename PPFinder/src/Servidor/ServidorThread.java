@@ -199,7 +199,7 @@ public class ServidorThread extends Thread {
         DatagramPacket env_paquete;
         boolean to = false;
         try {
-            socketUDP.setSoTimeout(200);
+            socketUDP.setSoTimeout(5000);
             while (contador < vecinos - 1) {
                     
                     contador++;

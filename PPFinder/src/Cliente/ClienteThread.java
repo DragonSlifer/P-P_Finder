@@ -179,7 +179,7 @@ public class ClienteThread extends Thread
         
         try 
         {
-            sleep(10000);
+            sleep(5000);
         } 
         catch (InterruptedException ex) 
         {
