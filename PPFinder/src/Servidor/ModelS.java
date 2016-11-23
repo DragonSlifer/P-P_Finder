@@ -22,7 +22,7 @@ import javax.swing.JTextArea;
  */
 public class ModelS 
 {
-    private static final int n_cli = 500;
+    private static final int n_cli = 300;
 
     private ServidorThread servidor;
     private final int port = 6000;

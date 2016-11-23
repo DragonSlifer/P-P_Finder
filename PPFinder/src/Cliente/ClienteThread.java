@@ -148,6 +148,7 @@ public class ClienteThread extends Thread
         {
             try 
             {
+                ok = true;
                 socketUDP.setSoTimeout(5000);
                 mensaje_bytes = new byte[256];
                 servPaquete = new DatagramPacket(mensaje_bytes, 256);
